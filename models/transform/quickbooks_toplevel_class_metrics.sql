@@ -1,3 +1,9 @@
+{{
+  config(
+    enabled = var('classes_enabled', true)
+  )
+}}
+
 with ledger as (
 
   select * from {{ref('quickbooks_general_ledger')}}
