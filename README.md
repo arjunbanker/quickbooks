@@ -14,7 +14,7 @@ The most important model in this repository is `general_ledger`. This model is t
 - modify your `packages.yml` to include the following:
 ```YAML
 packages:
-  - git: https://github.com/fishtown-analytics/quickbooks.git
+  - git: https://github.com/arjunbanker/quickbooks.git
     revision: 0.1.1
 ```
 - copy the models within the `base-models` directory into your dbt project and modify them so that they select from the appropriate tables and fields within your environment.
@@ -70,6 +70,9 @@ quickbooks:
       payments_enabled:                       false
       creditcard_payments_for_bills:          false -- if you don't have any bill payments made by credit card
 ```
+
+From the data/ folder:
+- import quickbooks_classifications.csv to your datawarehouse
 
 ### usage
 
