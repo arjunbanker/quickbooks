@@ -15,11 +15,11 @@ with classes as (
     sparse,
     domain,
     {% if target.type == 'bigquery' %}
-      nullif({{ dbt_utils.safe_cast('parentref.value', dbt_utils.type_bigint()) }}, '') as parent_class_id,
+      nullif({{ dbt_utils.safe_cast('parentref.value', dbt_utils.type_bigint()) }}, 0) as parent_class_id,
       metadata.createtime as created_at,
       metadata.lastupdatedtime as updated_at,
     {% else %}
-      nullif({{ dbt_utils.safe_cast('parentref__value', dbt_utils.type_bigint()) }}, '') as parent_class_id,
+      nullif({{ dbt_utils.safe_cast('parentref__value', dbt_utils.type_bigint()) }}, 0) as parent_class_id,
       metadata__createtime as created_at,
       metadata__lastupdatedtime as updated_at,
     {% endif %}

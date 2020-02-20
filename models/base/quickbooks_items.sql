@@ -6,7 +6,7 @@ with items as (
     unitprice as unit_price,
     type,
     taxable,
-    {{ dbt_utils.safe_cast('incomeaccountref__value', dbt_utils.type_int()) }} as account_id,
+    {{ dbt_utils.safe_cast('incomeaccountref.value', dbt_utils.type_int()) }} as account_id,
     {% if target.type == 'bigquery' %}
       metadata.createtime as created_at,
       metadata.lastupdatedtime as updated_at,
@@ -24,7 +24,7 @@ deduplicate as (
 
     select
         *,
-        row_number() over (partition by admin_id order by
+        row_number() over (partition by id order by
             received_at desc) as dedupe
     from items
 

@@ -21,5 +21,5 @@ with null_classification_accounts as (
 )
 
 select accounts.*, classifications.statement, classifications.account_type
-from accounts
+from accounts 
   inner join classifications on accounts.classification = classifications.classification

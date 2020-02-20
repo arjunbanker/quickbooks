@@ -9,7 +9,7 @@ with invoices_lines as (
   {% if target.type == 'bigquery' %}
 
     select
-      {{ dbt_utils.surrogate_key('line.id', 'invoices.id') }} as _id,
+      {{ dbt_utils.surrogate_key('line.id', 'invoices.id') }} as id,
       {{ dbt_utils.safe_cast('invoices.id', dbt_utils.type_int()) }} as invoice_id,
       amount,
       description,

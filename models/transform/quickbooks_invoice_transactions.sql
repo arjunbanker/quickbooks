@@ -2,11 +2,6 @@
 --on the invoice line.
 --this query creates both of those transactions.
 
-{{
-  config(
-    enabled = var('invoices_enabled', true)
-  )
-}}
 
 with invoices as (
 
@@ -32,15 +27,12 @@ d1 as (
     invoices.id,
     invoices.txn_date,
     items.account_id,
-    invoice_lines.amount
-    {% if var('classes_enabled', true) %}
-      ,
-      invoice_lines.class_id
-    {% endif %}
+    invoice_lines.amount,    
+    invoice_lines.class_id    
   from invoices
     inner join invoice_lines on invoices.id = invoice_lines.invoice_id
     inner join items on invoice_lines.item_id = items.id
-  }
+  
 
 )
 

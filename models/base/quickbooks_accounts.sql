@@ -10,6 +10,7 @@ with accounts as (
     accountsubtype as subtype,
     subaccount,
     classification,
+    acctnum,
     {% if target.type == 'bigquery' %}
       {{ dbt_utils.safe_cast("nullif(parentref.value, '')", dbt_utils.type_int()) }} as parent_account_id,
       metadata.createtime as created_at,

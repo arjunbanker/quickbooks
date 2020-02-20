@@ -8,10 +8,8 @@ with bill_lines as (
       {{ dbt_utils.safe_cast('bills.id', dbt_utils.type_int()) }} as bill_id,
       {{ dbt_utils.surrogate_key('line.id', 'bills.id') }} as bill_line_id,
       line.amount,
-
-      {% if var('classes_enabled', true) %}
-        nullif({{ dbt_utils.safe_cast('accountbasedexpenselinedetail.classref.value', dbt_utils.type_bigint() ) }}, '') as class_id,
-      {% endif %}
+      
+      nullif({{ dbt_utils.safe_cast('accountbasedexpenselinedetail.classref.value', dbt_utils.type_bigint() ) }}, 0) as class_id,
 
       {{ dbt_utils.safe_cast('accountbasedexpenselinedetail.accountref.value', dbt_utils.type_int()) }} as account_id,
       _sdc_received_at as received_at
@@ -30,7 +28,7 @@ with bill_lines as (
       amount,
 
       {% if var('classes_enabled', true) %}
-        nullif({{ dbt_utils.safe_cast('accountbasedexpenselinedetail__classref__value', dbt_utils.type_bigint() ) }}, '') as class_id,
+        nullif({{ dbt_utils.safe_cast('accountbasedexpenselinedetail__classref__value', dbt_utils.type_bigint() ) }}, 0) as class_id,
       {% endif %}
 
       {{ dbt_utils.safe_cast('accountbasedexpenselinedetail__accountref__value', dbt_utils.type_int()) }} as account_id,

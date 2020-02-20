@@ -12,7 +12,11 @@ with invoices as (
       {{ dbt_utils.safe_cast('txndate', 'date') }} as txn_date,
       {{ dbt_utils.safe_cast('duedate', 'date') }} as due_date,
       balance,
+      {% if target.type == 'bigquery' %}
+      deliveryinfo.deliverytype as delivery_type,
+      {% else %}
       deliveryinfo__deliverytype as delivery_type,
+      {% endif %}
       emailstatus as email_status,
       docnumber as doc_number,
       {% if target.type == 'bigquery' %}
